@@ -1,12 +1,16 @@
-import HomeCarousel from "@/customers/components/HomeCarousel/MainCarousel"
+import MainCarousel from "@/customers/components/HomeCarousel/MainCarousel";
+import HomeSectionCarousel from "@/customers/components/HomeSectionCarousel/HomeSectionCarousel";
 
 const HomePage = () => {
   return (
     <div>
-        <HomeCarousel />
-        <div>
-            other sections 
-            
+        <MainCarousel />
+        <div className="space-y-10 py-20 flex flex-col justify-center px-5 lg:px-10 ">
+            <HomeSectionCarousel />
+            <HomeSectionCarousel />
+            <HomeSectionCarousel />
+            <HomeSectionCarousel />
+            <HomeSectionCarousel />
         </div>
     </div>
   )

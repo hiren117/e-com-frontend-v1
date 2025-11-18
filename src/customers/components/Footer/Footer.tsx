@@ -15,6 +15,19 @@ const Footer = () => {
           <Typography>About Us</Typography>
           <Typography>Careers</Typography>
         </Grid>
+        <Grid item xs={12} sm={6} md={3}> {/* 👈 added `item` for Grid */}
+          <Typography className="font-bold mb-2">Company</Typography>
+          <Typography>About Us</Typography>
+          <Typography>Careers</Typography>
+        </Grid><Grid item xs={12} sm={6} md={3}> {/* 👈 added `item` for Grid */}
+          <Typography className="font-bold mb-2">Company</Typography>
+          <Typography>About Us</Typography>
+          <Typography>Careers</Typography>
+        </Grid><Grid item xs={12} sm={6} md={3}> {/* 👈 added `item` for Grid */}
+          <Typography className="font-bold mb-2">Company</Typography>
+          <Typography>About Us</Typography>
+          <Typography>Careers</Typography>
+        </Grid>
       </Grid>
     </div>
   );

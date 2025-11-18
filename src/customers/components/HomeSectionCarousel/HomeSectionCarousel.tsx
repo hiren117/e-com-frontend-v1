@@ -3,10 +3,10 @@ import AliceCarousel from 'react-alice-carousel';
 import HomeSectionCard from '../HomeSectionCard/HomeSectionCard';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Button } from '@mui/material';
-import type { Product } from '@/customers/types/Product';
+import type { MensKurta } from '@/customers/types/MensKurta';
 
 type Props = {
-    data: Product[]; // 👈 receive product array as a prop
+    data: MensKurta[]; // 👈 receive product array as a prop
     sectionName: string;
 };
 

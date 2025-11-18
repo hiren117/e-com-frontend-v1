@@ -12,7 +12,7 @@ function App() {
         <Navigation />
       </div>
       <div>
-      {/*  <HomePage />  */} 
+      <HomePage />   
       <Product />
       </div>
       <div>

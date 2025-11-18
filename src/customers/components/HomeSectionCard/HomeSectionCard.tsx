@@ -1,7 +1,7 @@
+import type { MensKurta } from '@/customers/types/MensKurta';
 import React from 'react';
-import type {Product} from '@/customers/types/Product';
 
-const HomeSectionCard = ({product}:{product:Product}) => {
+const HomeSectionCard = ({product}:{product:MensKurta}) => {
     return (
         <div className='cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg 
         overflow-hidden w-[13rem] mx-3'>

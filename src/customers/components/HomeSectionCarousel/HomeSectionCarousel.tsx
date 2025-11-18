@@ -1,37 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import HomeSectionCard from '../HomeSectionCard/HomeSectionCard';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Button } from '@mui/material';
+import type { Product } from '@/customers/types/Product';
 
-const HomeSectionCarousel = () => {
+type Props = {
+    data: Product[]; // 👈 receive product array as a prop
+    sectionName: string;
+};
+
+const HomeSectionCarousel: React.FC<Props> = ({ data,sectionName }) => {
+    const [activeIndex, setActiveIndex] = useState(0);
     const responsive = {
         0: { items: 1 },
         720: { items: 3 },
-        1024: { items: 5 },
+        1024: { items: 5.5 },
     };
-    const items = [1, 1, 1, 1, 1,1,1,1,1,1,1,1].map((item) => <HomeSectionCard />)
+    const slideNext = () => setActiveIndex(activeIndex + 1);
+    const slidePrev = () => setActiveIndex(activeIndex - 1);
+    const syncActiveIndex = ({ item }: { item: number }) => setActiveIndex(item);  // -------------------->> error
+    const items = data.map((item) => <HomeSectionCard product={item} />)
+
+    // const items = mens_kurta.slice(0,10).map((item) => <HomeSectionCard {...item} />)
+
     return (
-        <div className=' border border-black '>
+        <div className=''>
+            <h2 className='text-2xl font-extrabold text-gray-900 py-5 text-left'>{sectionName} </h2>
             <div className='relative p-5'>
                 <AliceCarousel
                     disableButtonsControls
                     items={items}
-                    infinite
                     responsive={responsive}
                     disableDotsControls
+                    onSlideChanged={syncActiveIndex}
+                    activeIndex={activeIndex}
                 />
-                <Button className='z-50' sx={{ position: 'absolute', top: '8rem', left: '0rem' }}
+                {activeIndex !== 0 && <Button onClick={slidePrev} className='z-50'
+                    sx={{
+                        position: 'absolute',
+                        top: '8rem',
+                        left: '0rem'
+                    }}
                     aria-label='next'>
                     <KeyboardArrowLeftIcon />
-                </Button>
-                <Button className='z-50' sx={{
-                    position: 'absolute', top: '8rem', right: '0rem',
-                    transform: 'rotate(180deg)'
-                }}
+                </Button>}
+
+                {activeIndex !== items.length - 5 && <Button onClick={slideNext} className='z-50'
+                    sx={{
+                        position: 'absolute',
+                        top: '8rem',
+                        right: '0rem',
+                        transform: 'rotate(180deg)'
+                    }}
                     aria-label='next'>
                     <KeyboardArrowLeftIcon />
-                </Button>
+                </Button>}
             </div>
         </div>
     );

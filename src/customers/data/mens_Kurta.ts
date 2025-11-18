@@ -1,0 +1,51 @@
+
+export const mens_Kurta = [
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+1",
+        "brand": "Brand A",
+        "title": "Men's Solid Cotton Kurta",
+        "price": 29.99
+    },
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Womens+Kurta+1",
+        "brand": "Brand B",
+        "title": "Women's Floral Print Kurta",
+        "price": 34.99
+    },
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+2",
+        "brand": "Brand C",
+        "title": "Men's Embroidered Kurta",
+        "price": 39.99
+    },  
+    {   
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+3",
+        "brand": "Brand D",
+        "title": "Men's Casual Kurta",
+        "price": 24.99  
+    },
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+4",
+        "brand": "Brand E",     
+        "title": "Men's Festive Kurta",
+        "price": 49.99  
+    },
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+5",
+        "brand": "Brand F", 
+        "title": "Men   's Party Wear Kurta",   
+        "price": 59.99
+    },
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+6",
+        "brand": "Brand G",
+        "title": "Men's Linen Kurta",
+        "price": 44.99
+    },
+    {
+        "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+7",
+        "brand": "Brand H", 
+        "title": "Men's Printed Kurta",
+        "price": 27.99  
+    }    
+];

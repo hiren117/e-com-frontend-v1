@@ -20,9 +20,7 @@ const ProductCard:React.FC<Props> = ({data}) => {
           <p className='line-through opacity-50'>{data.price}</p>
           <p className='text-green-600  '> {data.discount}% off</p>
         </div>
-
       </div>
-
     </div>
   );
 };

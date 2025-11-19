@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react';
 import {
   Dialog,
   DialogBackdrop,
@@ -14,10 +14,40 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-} from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+} from '@headlessui/react';
+import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-const navigation = {
+type NavLink = {
+  name: string;
+  href: string;
+};
+
+type FeaturedItem = {
+  name: string;
+  href: string;
+  imageSrc: string;
+  imageAlt: string;
+};
+
+type Section = {
+  id: string;
+  name: string;
+  items: NavLink[];
+};
+
+type Category = {
+  id: string;
+  name: string;
+  featured: FeaturedItem[];
+  sections: Section[];
+};
+
+type NavigationData = {
+  categories: Category[];
+  pages: NavLink[];
+};
+
+const navigation: NavigationData = {
   categories: [
     {
       id: 'women',
@@ -139,10 +169,10 @@ const navigation = {
     { name: 'Company', href: '#' },
     { name: 'Stores', href: '#' },
   ],
-}
+};
 
-export default function Navigation() {
-  const [open, setOpen] = useState(false)
+const Navigation: React.FC = () => {
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="bg-white">
@@ -272,7 +302,8 @@ export default function Navigation() {
           Get free delivery on orders over $100
         </p>
 
-        <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* 👇 yahan max-w hata diya, now full width */}
+        <nav aria-label="Top" className="w-full px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
               <button
@@ -315,10 +346,10 @@ export default function Navigation() {
                         transition
                         className="absolute inset-x-0 top-full z-20 w-full bg-white text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
                       >
-                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                         <div aria-hidden="true" className="absolute inset-0 top-1/2 bg-white shadow-sm" />
                         <div className="relative bg-white">
-                          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                          {/* 👇 yahan bhi max-w-7xl hataya */}
+                          <div className="w-full px-4 sm:px-6 lg:px-8">
                             <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                               <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                 {category.featured.map((item) => (
@@ -426,5 +457,7 @@ export default function Navigation() {
         </nav>
       </header>
     </div>
-  )
-}
+  );
+};
+
+export default Navigation;

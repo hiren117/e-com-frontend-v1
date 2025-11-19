@@ -17,6 +17,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
 import { mens_Kurta } from '@/customers/data/mens_Kurta';
 import ProductCard from './ProductCard';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 // ---------- ✅ ADDED TYPES ----------
 type SortOption = {
@@ -48,13 +49,13 @@ const sortOptions: SortOption[] = [
   { name: 'Price: High to Low', href: '#', current: false },
 ];
 
-const subCategories: SubCategory[] = [
+{/*const subCategories: SubCategory[] = [
   { name: 'Totes', href: '#' },
   { name: 'Backpacks', href: '#' },
   { name: 'Travel Bags', href: '#' },
   { name: 'Hip Bags', href: '#' },
   { name: 'Laptop Sleeves', href: '#' },
-];
+];*/}
 
 const filters: FilterSection[] = [
   {
@@ -81,18 +82,35 @@ const filters: FilterSection[] = [
     ],
   },
   {
+    id: 'Price',
+    name: 'Price',
+    options: [
+      { value: 'Under-500', label: 'Under 500', checked: false },
+      { value: '500-1000', label: '500 - 1000', checked: true },
+      { value: '1000-1500', label: '1000 - 1500', checked: false },
+      { value: '1500-2000', label: '1500 - 2000', checked: false },
+      { value: 'Above-2000', label: 'Above 2000', checked: false },
+    ],
+  },
+  {
     id: 'size',
     name: 'Size',
     options: [
-      { value: '2l', label: '2L', checked: false },
-      { value: '6l', label: '6L', checked: false },
-      { value: '12l', label: '12L', checked: false },
-      { value: '18l', label: '18L', checked: false },
-      { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: true },
-    ],
+      { value: 'S', label: 'S', checked: false },
+      { value: 'M', label: 'M', checked: false },
+      { value: 'L', label: 'L', checked: false },
+    ]
   },
-];
+  {    id: 'Availability',
+    name: 'Availability',
+    options: [ 
+      { value: 'In-Stock', label: 'In Stock', checked: true },
+      { value: 'Out-of-Stock', label: 'Out of Stock', checked: false },
+    ],
+  }
+  
+    ] 
+;
 
 // ---------- ✅ TYPED THIS FUNCTION ----------
 function classNames(...classes: Array<string | false | null | undefined>): string {
@@ -135,7 +153,7 @@ const Product: React.FC = () => {
               {/* Filters */}
               <form className="mt-4 border-t border-gray-200">
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="px-2 py-3 font-medium text-gray-900">
+                {/*<ul role="list" className="px-2 py-3 font-medium text-gray-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href} className="block px-2 py-3">
@@ -143,7 +161,7 @@ const Product: React.FC = () => {
                       </a>
                     </li>
                   ))}
-                </ul>
+                </ul>*/}
 
                 {filters.map((section) => (
                   <Disclosure key={section.id} as="div" className="border-t border-gray-200 px-4 py-6">
@@ -267,14 +285,18 @@ const Product: React.FC = () => {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
               {/* Filters */}
               <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
+                <div className='flex justify-between py-5'>
+                  <h2 className='font-bold text-left text-lg opacity-50'>Filters</h2>
+                  <FilterListIcon />
+                </div>
+                {/*<h3 className="sr-only">Categories</h3>
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>
                     </li>
                   ))}
-                </ul>
+                </ul>*/}
 
                 {filters.map((section) => (
                   <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6">

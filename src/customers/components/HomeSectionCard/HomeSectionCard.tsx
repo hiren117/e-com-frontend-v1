@@ -1,19 +1,22 @@
 import type { MensKurta } from '@/customers/types/MensKurta';
 import React from 'react';
+type Props = {
+    data: MensKurta
+}
 
-const HomeSectionCard = ({product}:{product:MensKurta}) => {
+const HomeSectionCard:React.FC<Props> = ({data}) => {
     return (
         <div className='cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg 
         overflow-hidden w-[13rem] mx-3'>
 
             <div className='h-[13rem] w-[10rem] '>
                 <img className='object-cover object-top w-full h-full'
-                    src={product.imageUrl} alt="" />
+                    src={data.imageUrl} alt="" />
 
             </div>
             <div className='p-4'>
-                <h3 className='text-lg font-medium text-gray-900'>{product.brand} </h3>
-                <p className='mt-2 text-sm text-gray-500'> {product.title}</p>
+                <h3 className='text-lg font-medium text-gray-900'>{data.brand} </h3>
+                <p className='mt-2 text-sm text-gray-500'> {data.title}</p>
             </div>
         </div>
     )

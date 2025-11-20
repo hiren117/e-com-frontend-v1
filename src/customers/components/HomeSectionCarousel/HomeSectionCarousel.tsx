@@ -31,7 +31,7 @@ const HomeSectionCarousel: React.FC<Props> = ({ data, sectionName }) => {
   };
 
   const items = data.map((item) => (
-    <HomeSectionCard key={item.id} product={item} />
+    <HomeSectionCard key={item.id} data={item} />
   ));
 
   return (

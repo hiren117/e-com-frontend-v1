@@ -20,7 +20,7 @@ import ProductCard from './ProductCard';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { multiFilters, singleFilters, sortOptions } from './FilterData';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 // ---------- ✅ ADDED TYPES ---------
 // ---------- ✅ TYPED THIS FUNCTION ----------
@@ -35,25 +35,52 @@ const Product = () => {
   // ---------- ✅ writting function for handling filter logic ----------
   const location = useLocation();
   const navigate = useNavigate();
-  const handleFilterChange = (filterId: string, optionValue: string) => {
-    console.log(`Filter changed: ${filterId} - ${optionValue} at ${location.pathname}`);
+
+  // ✅ 1st function: handleFilterChange
+  const handleMultiFilterChange = (filterId: string, optionValue: string) => {
+    // console.log(`Filter changed: filterID: ${filterId} - ${optionValue} at ${location.pathname}`);
     // Implement filter logic here
     const searchParams = new URLSearchParams(location.search);
+    // console.log(`searchParams: ${searchParams.toString()}`);
+
     let filterValues = searchParams.getAll(filterId);
+    // console.log(`Existing filter values for ${filterId}: ${filterValues}`);
+
     if (filterValues.length > 0 && filterValues[0].split(',').includes(optionValue)) {
       filterValues = filterValues[0].split(',').filter(value => value !== optionValue);
+      // console.log(`Updated filter values after removal for ${filterId}: ${filterValues}`);
 
       if (filterValues.length === 0) {
         searchParams.delete(filterId);
+        // console.log(`No more values for ${filterId}, parameter removed.`);
+        navigate(location.pathname + '?' + searchParams.toString());
       }
     } else {
+      // console.log(`Adding filter value: ${optionValue} for ${filterId}`);
       filterValues.push(optionValue);
     }
     if (filterValues.length > 0) {
+      // console.log(`Setting filter values for ${filterId}: ${filterValues}`);
       searchParams.set(filterId, filterValues.join(','));
       const query = searchParams.toString();
+      // console.log(`Updated query string: ${query}`);
+
       navigate(`${location.pathname}?${query}`);  ////navigate(search:`?${query}`); 
     }
+  };
+
+
+  //✅ 2nd function for radio button (single select filter)
+
+  const handleSingleFilterChange = (filterId: string, optionValue: string) => {
+    // console.log(`Single Filter changed: filterID: ${filterId} - ${optionValue} at ${location.pathname}`);
+    // Implement filter logic here
+    const searchParams = new URLSearchParams(location.search);
+    // console.log(`searchParams: ${searchParams.toString()}`);
+    searchParams.set(filterId, optionValue);
+    const query = searchParams.toString();
+    // console.log(`Updated query string: ${query}`);
+    navigate(`${location.pathname}?${query}`);  ////navigate(search:`?${query}`);
 
   }
   // ------------------------------------------------------------------
@@ -252,6 +279,7 @@ const Product = () => {
                             <div className="flex h-5 shrink-0 items-center">
                               <div className="group grid size-4 grid-cols-1">
                                 <input
+                                  onChange={() => handleMultiFilterChange(section.id, option.value)}
                                   defaultValue={option.value}
                                   defaultChecked={option.checked}
                                   id={`filter-${section.id}-${optionIdx}`}
@@ -311,7 +339,7 @@ const Product = () => {
                             name="radio-buttons-group"
                           >
                             {section.options.map((option) => (
-                              <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
+                              <FormControlLabel onChange={() => handleSingleFilterChange(section.id, option.value)} value={option.value} control={<Radio />} label={option.label} />
                             ))}
                           </RadioGroup>
                         </FormControl>
@@ -335,5 +363,4 @@ const Product = () => {
     </div>
   );
 }
-
 export default Product;

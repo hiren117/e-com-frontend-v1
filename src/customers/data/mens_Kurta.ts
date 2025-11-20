@@ -1,6 +1,6 @@
 
 export const mens_Kurta = [
-    {
+    {   "id": 1,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+1",
         "brand": "Brand A",
         "title": "Men's Solid Cotton Kurta",
@@ -9,6 +9,7 @@ export const mens_Kurta = [
         "discount": 33
     },
     {
+        "id": 2,
         "imageUrl": "https://placehold.co/600x400?text=Womens+Kurta+1",
         "brand": "Brand B",
         "title": "Women's Floral Print Kurta",
@@ -17,6 +18,7 @@ export const mens_Kurta = [
         "discount": 34
     },
     {
+        "id": 3,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+2",
         "brand": "Brand C",
         "title": "Men's Embroidered Kurta",
@@ -24,7 +26,7 @@ export const mens_Kurta = [
         "discountedPrice": 25.99,
         "discount": 35
     },  
-    {   
+    {   "id": 4,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+3",
         "brand": "Brand D",
         "title": "Men's Casual Kurta",
@@ -32,7 +34,7 @@ export const mens_Kurta = [
         "discountedPrice": 14.99,
         "discount": 40 
     },
-    {
+    {   "id": 5,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+4",
         "brand": "Brand E",     
         "title": "Men's Festive Kurta",
@@ -40,7 +42,7 @@ export const mens_Kurta = [
         "discountedPrice": 29.99,
         "discount": 40
     },
-    {
+    {   "id": 6,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+5",
         "brand": "Brand F", 
         "title": "Men   's Party Wear Kurta",   
@@ -48,7 +50,7 @@ export const mens_Kurta = [
         "discountedPrice": 34.99,
         "discount": 42
     },
-    {
+    {   "id": 7,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+6",
         "brand": "Brand G",
         "title": "Men's Linen Kurta",
@@ -56,7 +58,7 @@ export const mens_Kurta = [
         "discountedPrice": 26.99,   
         "discount": 40
     },
-    {
+    {   "id": 8,
         "imageUrl": "https://placehold.co/600x400?text=Mens+Kurta+7",
         "brand": "Brand H", 
         "title": "Men's Printed Kurta",

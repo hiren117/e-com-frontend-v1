@@ -12,7 +12,8 @@ function App() {
         <Navigation />
       </div>
       <div> 
-      <Product />
+        <HomePage />
+        <Product />
       </div>
       <div>
         <Footer />

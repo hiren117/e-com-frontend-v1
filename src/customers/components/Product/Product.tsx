@@ -18,100 +18,11 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import { mens_Kurta } from '@/customers/data/mens_Kurta';
 import ProductCard from './ProductCard';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { multiFilters, singleFilters, sortOptions } from './FilterData';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 
-// ---------- ✅ ADDED TYPES ----------
-type SortOption = {
-  name: string;
-  href: string;
-  current: boolean;
-};
-
-type SubCategory = {
-  name: string;
-  href: string;
-};
-
-type FilterOption = {
-  value: string;
-  label: string;
-  checked: boolean;
-};
-
-type FilterSection = {
-  id: string;
-  name: string;
-  options: FilterOption[];
-};
-// ------------------------------------
-
-const sortOptions: SortOption[] = [
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
-];
-
-{/*const subCategories: SubCategory[] = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
-  { name: 'Travel Bags', href: '#' },
-  { name: 'Hip Bags', href: '#' },
-  { name: 'Laptop Sleeves', href: '#' },
-];*/}
-
-const filters: FilterSection[] = [
-  {
-    id: 'color',
-    name: 'Color',
-    options: [
-      { value: 'white', label: 'White', checked: false },
-      { value: 'beige', label: 'Beige', checked: false },
-      { value: 'blue', label: 'Blue', checked: true },
-      { value: 'brown', label: 'Brown', checked: false },
-      { value: 'green', label: 'Green', checked: false },
-      { value: 'purple', label: 'Purple', checked: false },
-    ],
-  },
-  {
-    id: 'category',
-    name: 'Category',
-    options: [
-      { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-      { value: 'sale', label: 'Sale', checked: false },
-      { value: 'travel', label: 'Travel', checked: true },
-      { value: 'organization', label: 'Organization', checked: false },
-      { value: 'accessories', label: 'Accessories', checked: false },
-    ],
-  },
-  {
-    id: 'Price',
-    name: 'Price',
-    options: [
-      { value: 'Under-500', label: 'Under 500', checked: false },
-      { value: '500-1000', label: '500 - 1000', checked: true },
-      { value: '1000-1500', label: '1000 - 1500', checked: false },
-      { value: '1500-2000', label: '1500 - 2000', checked: false },
-      { value: 'Above-2000', label: 'Above 2000', checked: false },
-    ],
-  },
-  {
-    id: 'size',
-    name: 'Size',
-    options: [
-      { value: 'S', label: 'S', checked: false },
-      { value: 'M', label: 'M', checked: false },
-      { value: 'L', label: 'L', checked: false },
-    ]
-  },
-  {    id: 'Availability',
-    name: 'Availability',
-    options: [ 
-      { value: 'In-Stock', label: 'In Stock', checked: true },
-      { value: 'Out-of-Stock', label: 'Out of Stock', checked: false },
-    ],
-  }
-  
-    ] 
-;
-
+// ---------- ✅ ADDED TYPES ---------
 // ---------- ✅ TYPED THIS FUNCTION ----------
 function classNames(...classes: Array<string | false | null | undefined>): string {
   return classes.filter(Boolean).join(' ');
@@ -119,8 +30,33 @@ function classNames(...classes: Array<string | false | null | undefined>): strin
 // -------------------------------------------
 
 // (optional but nice) – give the component a type:
-const Product: React.FC = () => {
+const Product = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  // ---------- ✅ writting function for handling filter logic ----------
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleFilterChange = (filterId: string, optionValue: string) => {
+    console.log(`Filter changed: ${filterId} - ${optionValue} at ${location.pathname}`);
+    // Implement filter logic here
+    const searchParams = new URLSearchParams(location.search);
+    let filterValues = searchParams.getAll(filterId);
+    if (filterValues.length > 0 && filterValues[0].split(',').includes(optionValue)) {
+      filterValues = filterValues[0].split(',').filter(value => value !== optionValue);
+
+      if (filterValues.length === 0) {
+        searchParams.delete(filterId);
+      }
+    } else {
+      filterValues.push(optionValue);
+    }
+    if (filterValues.length > 0) {
+      searchParams.set(filterId, filterValues.join(','));
+      const query = searchParams.toString();
+      navigate(`${location.pathname}?${query}`);  ////navigate(search:`?${query}`); 
+    }
+
+  }
+  // ------------------------------------------------------------------
 
   return (
     <div className="bg-white">
@@ -163,7 +99,7 @@ const Product: React.FC = () => {
                   ))}
                 </ul>*/}
 
-                {filters.map((section) => (
+                {multiFilters.map((section) => (
                   <Disclosure key={section.id} as="div" className="border-t border-gray-200 px-4 py-6">
                     <h3 className="-mx-2 -my-3 flow-root">
                       <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
@@ -298,7 +234,7 @@ const Product: React.FC = () => {
                   ))}
                 </ul>*/}
 
-                {filters.map((section) => (
+                {multiFilters.map((section) => (
                   <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6">
                     <h3 className="-my-3 flow-root">
                       <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
@@ -354,12 +290,42 @@ const Product: React.FC = () => {
                     </DisclosurePanel>
                   </Disclosure>
                 ))}
+                {singleFilters.map((section) => (
+                  <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6">
+
+                    <h3 className="-my-3 flow-root">
+                      <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                        <span className="font-medium text-gray-900">{section.name}</span>
+                        <span className="ml-6 flex items-center">
+                          <PlusIcon aria-hidden="true" className="size-5 group-data-open:hidden" />
+                          <MinusIcon aria-hidden="true" className="size-5 group-not-data-open:hidden" />
+                        </span>
+                      </DisclosureButton>
+                    </h3>
+                    <DisclosurePanel className="text-left pt-6">
+                      <div className="space-y-4">
+                        <FormControl>
+                          <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="female"
+                            name="radio-buttons-group"
+                          >
+                            {section.options.map((option) => (
+                              <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
+                            ))}
+                          </RadioGroup>
+                        </FormControl>
+                      </div>
+                    </DisclosurePanel>
+
+                  </Disclosure>
+                ))}
               </form>
 
               {/* Product grid */}
               <div className="lg:col-span-4">{/* Your content */}
-                <div className='flex flex-wrap justify-center bg-white py-5'>  
-                  {mens_Kurta.map((item) =><ProductCard data = {item} />) }
+                <div className='flex flex-wrap justify-center bg-white py-5'>
+                  {mens_Kurta.map((item) => <ProductCard data={item} />)}
                 </div>
               </div>
             </div>
@@ -368,6 +334,6 @@ const Product: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Product;

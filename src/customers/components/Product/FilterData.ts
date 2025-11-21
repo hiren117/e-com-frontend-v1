@@ -19,7 +19,7 @@ type multiFilterSection = {
   name: string;
   options: multiFilterOption[];
 };
-//-----------------------\
+//-----------------------
 
 // single select filters
 type singleFilterOption = {

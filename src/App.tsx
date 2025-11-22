@@ -5,6 +5,8 @@ import Footer from '@/customers/components/Footer/Footer';
 import Product from '@/customers/components/Product/Product';
 import ProductDetails from './customers/components/ProductDetails/ProductDetails';
 import Cart from './customers/components/Cart/Cart';
+import { Check } from '@mui/icons-material';
+import Checkout from './customers/components/Checkout/Checkout';
 
 function App() {
 
@@ -14,7 +16,12 @@ function App() {
         <Navigation />
       </div>
       <div> 
-        <Cart />
+        {/* <Cart /> */}
+        {/* <ProductDetails /> */}
+        {/* <Product /> */}
+        {/* <HomePage /> */} 
+        {/* <Footer /> */}
+        <Checkout />
       </div>
       <div>
         <Footer />

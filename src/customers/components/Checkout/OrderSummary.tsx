@@ -9,7 +9,7 @@ type Props = {
 const OrderSummary:React.FC<Props> = () => {
   return (
     <div>
-        <div className='p-5 shadow-lg rounded-s-md border'>
+        <div className=''>
             <AddressCard />
             
              

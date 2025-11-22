@@ -4,7 +4,7 @@ type Props = {
 };
 const AddressCard:React.FC<Props> = () => {
   return (
-    <div>
+    <div className='p-5 shadow-lg rounded-s-md border-gray-600'>
         <div className='text-left space-y-3'>
             <p className='font-semibold'> Jai Shree Raam</p>
             <p> Ayodhya, Sanatani,369</p>

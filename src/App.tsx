@@ -7,6 +7,8 @@ import ProductDetails from './customers/components/ProductDetails/ProductDetails
 import Cart from './customers/components/Cart/Cart';
 import { Check } from '@mui/icons-material';
 import Checkout from './customers/components/Checkout/Checkout';
+import Order from './customers/components/Order/Order';
+import OrderDetails from './customers/components/Order/OrderDetails';
 
 function App() {
 
@@ -21,7 +23,9 @@ function App() {
         {/* <Product /> */}
         {/* <HomePage /> */} 
         {/* <Footer /> */}
-        <Checkout />
+        {/* <Checkout /> */}
+        {/* <Order  /> */}
+        <OrderDetails/>
       </div>
       <div>
         <Footer />

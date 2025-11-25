@@ -1,12 +1,14 @@
 import React from 'react';
 import './ProductCard.css';
 import type { MensKurta } from '@/customers/types/MensKurta';
+import { useNavigate } from 'react-router-dom';
 type Props = {
   data: MensKurta;
 };
 const ProductCard:React.FC<Props> = ({data}) => {
+  const navigate = useNavigate();
   return (
-    <div className="productCard w-[15rem] m-3 transition-all cursor-pointer" >
+    <div onClick={()=> navigate(`/product/${2}`)} className="productCard w-[15rem] m-3 transition-all cursor-pointer" >
       <div className='h-[20rem] '>
         <img className='h-full w-full' src={data.imageUrl} alt="" />
       </div>

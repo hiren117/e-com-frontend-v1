@@ -1,10 +1,15 @@
 import React from 'react';
 import CartCard from './CartCard';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 type Props = {
 
 };
 const Cart: React.FC<Props> = () => {
+    const navigate = useNavigate();
+    const handleCheckout = ()=>{
+        navigate("/checkout?step=2")
+    }
     return (
         <div>
             <div className='lg:grid lg:grid-cols-3 lg:px-16 relative space-x-1 mt-10 lg:space-x-10 '>
@@ -37,7 +42,7 @@ const Cart: React.FC<Props> = () => {
 
                         </div>
                         <div className='text-left py-1'>
-                            <Button className='w-full' variant='contained' sx={{ px: "2.5rem", py: "0.7rem", bgcolor: "#9155fd" }}
+                            <Button onClick={handleCheckout} className='w-full' variant='contained' sx={{ px: "2.5rem", py: "0.7rem", bgcolor: "#9155fd" }}
                             >
                                 CheckOut
                             </Button>

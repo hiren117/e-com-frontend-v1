@@ -8,6 +8,7 @@ import ProductReviewCard from './ProductReviewCard';
 import ProductCard from '../Product/ProductCard';
 import { mens_Kurta } from '@/customers/data/mens_Kurta';
 import type { MensKurta } from '@/customers/types/MensKurta';
+import { useNavigate } from 'react-router-dom';
 
 // TS: define small helper types for better safety
 type Breadcrumb = { id: number; name: string; href: string }; // TS: breadcrumb structure
@@ -89,6 +90,10 @@ function classNames(...classes: Array<string | false | null | undefined>): strin
 }
 
 const ProductDetails:React.FC = () => { // TS: add explicit return type for the component
+    const navigate = useNavigate();
+    const handleAddToCart = ()=>{
+        navigate("/cart")
+    }
     return (
         <div className="bg-white lg:px-5">
             <div className="pt-6">
@@ -250,7 +255,7 @@ const ProductDetails:React.FC = () => { // TS: add explicit return type for the 
                                     </fieldset>
                                 </div>
                                 <div className='text-left py-1'>
-                                    <Button variant='contained' sx={{ px: "2rem", py: "1rem", bgcolor: "#9155fd" }}
+                                    <Button onClick={handleAddToCart} variant='contained' sx={{ px: "2rem", py: "1rem", bgcolor: "#9155fd" }}
                                     >
                                         Add to Cart
                                     </Button>

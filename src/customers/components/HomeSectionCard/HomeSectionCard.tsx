@@ -1,12 +1,14 @@
 import type { MensKurta } from '@/customers/types/MensKurta';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 type Props = {
     data: MensKurta
 }
 
 const HomeSectionCard:React.FC<Props> = ({data}) => {
+    const navigate = useNavigate();
     return (
-        <div className='cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg 
+        <div onClick={()=> navigate(`/product/${3}`)} className='cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg 
         overflow-hidden w-[13rem] mx-3'>
 
             <div className='h-[13rem] w-[10rem] '>

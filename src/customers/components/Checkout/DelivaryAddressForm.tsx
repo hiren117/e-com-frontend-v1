@@ -3,6 +3,7 @@ import React from 'react';
 import AddressCard from '../AddressCard/AddressCard';
 import { Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 type Props = {
 
 };
@@ -23,7 +24,13 @@ const DelivaryAddressForm: React.FC<Props> = () => {
             phoneNumber: formData.get("phoneNumber") as string
         };
         console.log("address", form_Data);
+       
+        
     }
+    const navigate = useNavigate()
+    const handleDeliverHere = ()=>{
+            navigate("/checkout?step=3");
+        }
     return (
         <div>
             <Grid className='' container spacing={4} >
@@ -31,7 +38,7 @@ const DelivaryAddressForm: React.FC<Props> = () => {
                 <Grid xs={12} lg={5} className='border-gray-950 rounded-e-md shadow-md h-[30.5rem] overflow-y-scroll'>
                     <div className='p-5 py-7 border-b cursor-pointer'>
                         <AddressCard />
-                        <Button size='large' variant='contained' sx={{ mt: 3, bgcolor: "#9155fd" }}>
+                        <Button onClick={handleDeliverHere} size='large' variant='contained' sx={{ mt: 3, bgcolor: "#9155fd" }}>
                             Delivary Here
                         </Button>
                     </div>
@@ -125,7 +132,7 @@ const DelivaryAddressForm: React.FC<Props> = () => {
                                 </Grid>
                                 
                                 <Grid className='text-left' item xs={12} sm={6}>
-                                    <Button size='large'
+                                    <Button onClick={handleDeliverHere} size='large'
                                         variant='contained'
                                         type='submit'
                                         sx={{ mt: 3, bgcolor: "#9155fd" }}>

@@ -16,163 +16,20 @@ import {
   TabPanels,
 } from '@headlessui/react';
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import { navigation, type Category, type NavLink, type Section } from './NavigationData';
+import { Button } from '@mui/material';
 
-type NavLink = {
-  name: string;
-  href: string;
-};
 
-type FeaturedItem = {
-  name: string;
-  href: string;
-  imageSrc: string;
-  imageAlt: string;
-};
 
-type Section = {
-  id: string;
-  name: string;
-  items: NavLink[];
-};
-
-type Category = {
-  id: string;
-  name: string;
-  featured: FeaturedItem[];
-  sections: Section[];
-};
-
-type NavigationData = {
-  categories: Category[];
-  pages: NavLink[];
-};
-
-const navigation: NavigationData = {
-  categories: [
-    {
-      id: 'women',
-      name: 'Women',
-      featured: [
-        {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-        },
-        {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-        },
-      ],
-      sections: [
-        {
-          id: 'clothing',
-          name: 'Clothing',
-          items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Dresses', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Denim', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'accessories',
-          name: 'Accessories',
-          items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
-          ],
-        },
-        {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Significant Other', href: '#' },
-          ],
-        },
-      ],
-    },
-    {
-      id: 'men',
-      name: 'Men',
-      featured: [
-        {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc:
-            'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-        },
-        {
-          name: 'Artwork Tees',
-          href: '#',
-          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-06.jpg',
-          imageAlt:
-            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-        },
-      ],
-      sections: [
-        {
-          id: 'clothing',
-          name: 'Clothing',
-          items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'accessories',
-          name: 'Accessories',
-          items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
-          ],
-        },
-        {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-          ],
-        },
-      ],
-    },
-  ],
-  pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
-  ],
-};
 
 const Navigation: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category:Category,section:Section,item:NavLink) =>{
+    navigate(`/${category.id}/${section.id}/${item.name}`);
+  }
 
   return (
     <div className="bg-white">
@@ -329,10 +186,13 @@ const Navigation: React.FC = () => {
               </div>
 
               {/* Flyout menus */}
+            
               <PopoverGroup className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
+                  {/* categories map  */}
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
+                      {/* div for popover button */}
                       <div className="relative flex">
                         <PopoverButton className="group relative flex items-center justify-center text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:text-indigo-600">
                           {category.name}
@@ -352,6 +212,7 @@ const Navigation: React.FC = () => {
                           <div className="w-full px-4 sm:px-6 lg:px-8">
                             <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                               <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                {/* nav-->category-->features map two images for new arrivles */}
                                 {category.featured.map((item) => (
                                   <div key={item.name} className="group relative text-base sm:text-sm">
                                     <img
@@ -370,6 +231,7 @@ const Navigation: React.FC = () => {
                                 ))}
                               </div>
                               <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                {/* nav-->category-->section map   ----> id, name:(clothing,accessoris,brand), items--->name,href */}
                                 {category.sections.map((section) => (
                                   <div key={section.name}>
                                     <p id={`${section.name}-heading`} className="font-medium text-gray-900">
@@ -380,11 +242,16 @@ const Navigation: React.FC = () => {
                                       aria-labelledby={`${section.name}-heading`}
                                       className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                     >
+                                      {/* items in each section like in clothing ---> Top,Dresses,pant,..... */}
                                       {section.items.map((item) => (
                                         <li key={item.name} className="flex">
-                                          <a href={item.href} className="hover:text-gray-800">
+                                          {/* <a href={item.href} className="hover:text-gray-800">
                                             {item.name}
-                                          </a>
+                                          </a> */}
+                                          <button onClick={() => handleCategoryClick(category, section,item)}>
+                                            {item.name}
+                                          </button>
+                                          
                                         </li>
                                       ))}
                                     </ul>
@@ -397,6 +264,8 @@ const Navigation: React.FC = () => {
                       </PopoverPanel>
                     </Popover>
                   ))}
+
+                  {/* pages map */}
                   {navigation.pages.map((page) => (
                     <a
                       key={page.name}

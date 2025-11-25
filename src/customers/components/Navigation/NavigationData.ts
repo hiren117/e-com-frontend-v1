@@ -28,6 +28,17 @@ export type NavigationData = {
   pages: NavLink[];
 };
 
+type LoginOptions = {
+  name: string;
+  href: string;
+  current: boolean;
+};
+export const loginPopUp: LoginOptions[] = [
+  { name: 'Profile', href: '#', current: false },
+  { name: 'My Orders', href: '/orders', current: false },
+  { name: 'Logout', href: '#', current: false },
+];
+
 export const navigation: NavigationData = {
   categories: [
     {

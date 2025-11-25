@@ -2,12 +2,15 @@
 import Grid from '@mui/material/Grid';
 import React from 'react';
 import AdjustIcon from '@mui/icons-material/Adjust';
+import { useNavigate } from 'react-router-dom';
 type Props = {
 
 };
 const OrderCard: React.FC<Props> = () => {
+    const navigate = useNavigate();
+
     return (
-        <div className='p-3 border-gray-950 shadow-md hover:shadow-xl hover:shadow-gray-600 '>
+        <div onClick={()=>navigate(`/orders/1`)} className='p-3 border-gray-950 shadow-md hover:shadow-xl hover:shadow-gray-600 '>
             <Grid className='text-left' container spacing={2} sx={{ justifyContent: "space-between" }}>
                 <Grid item xs={6}>
                     <div className='text-left flex cursor-pointer'>

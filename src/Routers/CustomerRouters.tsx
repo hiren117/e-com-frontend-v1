@@ -24,14 +24,8 @@ const CustomerRouters: React.FC<Props> = () => {
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/chekout" element = {<Checkout/>} /> 
         <Route path="/account/order" element = {<Order/>} />
-        <Route path="/account/order/:orderId" element = {<OrderDetails/>} />
-
-
-       
-        {/* <Order  /> */}
-        {/* <OrderDetails/> */}
-
-
+        <Route path="/account/order/:orderId" element = {<OrderDetails/>} /> 
+        
       </Route>
       <div>
         <Footer />

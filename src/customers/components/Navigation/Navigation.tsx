@@ -1,10 +1,14 @@
-'use client';
-
-import React, { Fragment, useState } from 'react';
+"use client";
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import React, { Fragment, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
   Popover,
   PopoverButton,
   PopoverGroup,
@@ -14,22 +18,39 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-} from '@headlessui/react';
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useNavigate } from 'react-router-dom';
-import { navigation, type Category, type NavLink, type Section } from './NavigationData';
-import { Button } from '@mui/material';
+} from "@headlessui/react";
+import {
+  Bars3Icon,
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+  ShoppingBagIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import {
+  loginPopUp,
+  navigation,
+  type Category,
+  type NavLink,
+  type Section,
+} from "./NavigationData";
+import { Button } from "@mui/material";
 
-
-
+function classNames(...classes: Array<string | false | null | undefined>): string {
+  return classes.filter(Boolean).join(' ');
+}
 
 const Navigation: React.FC = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleCategoryClick = (category:Category,section:Section,item:NavLink) =>{
+  const handleCategoryClick = (
+    category: Category,
+    section: Section,
+    item: NavLink
+  ) => {
     navigate(`/${category.id}/${section.id}/${item.name}`);
-  }
+  };
 
   return (
     <div className="bg-white">
@@ -72,7 +93,10 @@ const Navigation: React.FC = () => {
               </div>
               <TabPanels as={Fragment}>
                 {navigation.categories.map((category) => (
-                  <TabPanel key={category.name} className="space-y-10 px-4 pt-10 pb-8">
+                  <TabPanel
+                    key={category.name}
+                    className="space-y-10 px-4 pt-10 pb-8"
+                  >
                     <div className="grid grid-cols-2 gap-x-4">
                       {category.featured.map((item) => (
                         <div key={item.name} className="group relative text-sm">
@@ -81,8 +105,14 @@ const Navigation: React.FC = () => {
                             src={item.imageSrc}
                             className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                           />
-                          <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                            <span aria-hidden="true" className="absolute inset-0 z-10" />
+                          <a
+                            href={item.href}
+                            className="mt-6 block font-medium text-gray-900"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0 z-10"
+                            />
                             {item.name}
                           </a>
                           <p aria-hidden="true" className="mt-1">
@@ -93,7 +123,10 @@ const Navigation: React.FC = () => {
                     </div>
                     {category.sections.map((section) => (
                       <div key={section.name}>
-                        <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
+                        <p
+                          id={`${category.id}-${section.id}-heading-mobile`}
+                          className="font-medium text-gray-900"
+                        >
                           {section.name}
                         </p>
                         <ul
@@ -103,7 +136,10 @@ const Navigation: React.FC = () => {
                         >
                           {section.items.map((item) => (
                             <li key={item.name} className="flow-root">
-                              <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                              <a
+                                href={item.href}
+                                className="-m-2 block p-2 text-gray-500"
+                              >
                                 {item.name}
                               </a>
                             </li>
@@ -119,7 +155,10 @@ const Navigation: React.FC = () => {
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               {navigation.pages.map((page) => (
                 <div key={page.name} className="flow-root">
-                  <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                  <a
+                    href={page.href}
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
                     {page.name}
                   </a>
                 </div>
@@ -128,12 +167,18 @@ const Navigation: React.FC = () => {
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                <a
+                  href="#"
+                  className="-m-2 block p-2 font-medium text-gray-900"
+                >
                   Sign in
                 </a>
               </div>
               <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                <a
+                  href="#"
+                  className="-m-2 block p-2 font-medium text-gray-900"
+                >
                   Create account
                 </a>
               </div>
@@ -146,7 +191,9 @@ const Navigation: React.FC = () => {
                   src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
                   className="block h-auto w-5 shrink-0"
                 />
-                <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
+                <span className="ml-3 block text-base font-medium text-gray-900">
+                  CAD
+                </span>
                 <span className="sr-only">, change currency</span>
               </a>
             </div>
@@ -186,7 +233,7 @@ const Navigation: React.FC = () => {
               </div>
 
               {/* Flyout menus */}
-            
+
               <PopoverGroup className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {/* categories map  */}
@@ -206,7 +253,10 @@ const Navigation: React.FC = () => {
                         transition
                         className="absolute inset-x-0 top-full z-20 w-full bg-white text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
                       >
-                        <div aria-hidden="true" className="absolute inset-0 top-1/2 bg-white shadow-sm" />
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 top-1/2 bg-white shadow-sm"
+                        />
                         <div className="relative bg-white">
                           {/* 👇 yahan bhi max-w-7xl hataya */}
                           <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -214,14 +264,23 @@ const Navigation: React.FC = () => {
                               <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                 {/* nav-->category-->features map two images for new arrivles */}
                                 {category.featured.map((item) => (
-                                  <div key={item.name} className="group relative text-base sm:text-sm">
+                                  <div
+                                    key={item.name}
+                                    className="group relative text-base sm:text-sm"
+                                  >
                                     <img
                                       alt={item.imageAlt}
                                       src={item.imageSrc}
                                       className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                                     />
-                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                      <span aria-hidden="true" className="absolute inset-0 z-10" />
+                                    <a
+                                      href={item.href}
+                                      className="mt-6 block font-medium text-gray-900"
+                                    >
+                                      <span
+                                        aria-hidden="true"
+                                        className="absolute inset-0 z-10"
+                                      />
                                       {item.name}
                                     </a>
                                     <p aria-hidden="true" className="mt-1">
@@ -234,7 +293,10 @@ const Navigation: React.FC = () => {
                                 {/* nav-->category-->section map   ----> id, name:(clothing,accessoris,brand), items--->name,href */}
                                 {category.sections.map((section) => (
                                   <div key={section.name}>
-                                    <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                    <p
+                                      id={`${section.name}-heading`}
+                                      className="font-medium text-gray-900"
+                                    >
                                       {section.name}
                                     </p>
                                     <ul
@@ -248,10 +310,17 @@ const Navigation: React.FC = () => {
                                           {/* <a href={item.href} className="hover:text-gray-800">
                                             {item.name}
                                           </a> */}
-                                          <button onClick={() => handleCategoryClick(category, section,item)}>
+                                          <button
+                                            onClick={() =>
+                                              handleCategoryClick(
+                                                category,
+                                                section,
+                                                item
+                                              )
+                                            }
+                                          >
                                             {item.name}
                                           </button>
-                                          
                                         </li>
                                       ))}
                                     </ul>
@@ -279,7 +348,7 @@ const Navigation: React.FC = () => {
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                {/* <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Login/SignIn
                   </a>
@@ -287,16 +356,49 @@ const Navigation: React.FC = () => {
                   <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
                   </a>
-                </div>
+                </div> */}
+                {/* login pop up */}
+                <Menu as="div" className="relative inline-block text-left">
+                  <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                    <PermIdentityIcon className='mt-1' />
+                  </MenuButton>
 
+                  <MenuItems
+                    transition
+                    className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                  >
+                    <div className="py-1">
+                      {loginPopUp.map((option) => (
+                        <MenuItem key={option.name}>
+                          <a
+                            href={option.href}
+                            className={classNames(
+                              option.current
+                                ? "font-medium text-gray-900"
+                                : "text-gray-500",
+                              "block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden"
+                            )}
+                          >
+                            {option.name}
+                          </a>
+                        </MenuItem>
+                      ))}
+                    </div>
+                  </MenuItems>
+                </Menu>
                 <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
+                  <a
+                    href="#"
+                    className="flex items-center text-gray-700 hover:text-gray-800"
+                  >
                     <img
                       alt=""
-                      src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
+                      src="https://www.svgrepo.com/show/405510/flag-for-flag-india.svg"
                       className="block h-auto w-5 shrink-0"
                     />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
+                    <span className="ml-3 block text-sm font-medium">
+                      BHARAT
+                    </span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
@@ -305,7 +407,10 @@ const Navigation: React.FC = () => {
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon aria-hidden="true" className="size-6" />
+                    <MagnifyingGlassIcon
+                      aria-hidden="true"
+                      className="size-6"
+                    />
                   </a>
                 </div>
 
@@ -316,10 +421,13 @@ const Navigation: React.FC = () => {
                       aria-hidden="true"
                       className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                      0
+                    </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>
+                
               </div>
             </div>
           </div>

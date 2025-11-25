@@ -8,29 +8,30 @@ import Product from "@/customers/components/Product/Product";
 import ProductDetails from "@/customers/components/ProductDetails/ProductDetails";
 import HomePage from "@/customers/pages/HomePage/HomePage";
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 type Props = {};
 const CustomerRouters: React.FC<Props> = () => {
   return (
-
-        <BrowserRouter>
+    <>
       <div>
         <Navigation />
       </div>
-      <Route>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/:levelOne/:levelTwo/:levelThree" element={<Product/>} />
+      <Routes>
+
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route path="/chekout" element = {<Checkout/>} /> 
-        <Route path="/account/order" element = {<Order/>} />
-        <Route path="/account/order/:orderId" element = {<OrderDetails/>} /> 
-        
-      </Route>
+        <Route path="/account/orders" element={<Order />} />
+        <Route path="/account/orders/:orderId" element={<OrderDetails />} />
+        {/*} 👇 This is the important dynamic route */}
+        <Route path="/:levelOne/:levelTwo/:levelThree" element={<Product />} />
+
+      </Routes>
       <div>
         <Footer />
       </div>
-   </BrowserRouter>
+      </>
   );
 };
 

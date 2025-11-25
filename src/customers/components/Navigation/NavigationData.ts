@@ -35,7 +35,7 @@ type LoginOptions = {
 };
 export const loginPopUp: LoginOptions[] = [
   { name: 'Profile', href: '#', current: false },
-  { name: 'My Orders', href: '/orders', current: false },
+  { name: 'My Orders', href: '/account/orders', current: false },
   { name: 'Logout', href: '#', current: false },
 ];
 

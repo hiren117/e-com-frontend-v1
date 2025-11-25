@@ -10,7 +10,7 @@ const OrderCard: React.FC<Props> = () => {
     const navigate = useNavigate();
 
     return (
-        <div onClick={()=>navigate(`/orders/1`)} className='p-3 border-gray-950 shadow-md hover:shadow-xl hover:shadow-gray-600 '>
+        <div onClick={()=>navigate(`/account/orders/1`)} className='p-3 border-gray-950 shadow-md hover:shadow-xl hover:shadow-gray-600 '>
             <Grid className='text-left' container spacing={2} sx={{ justifyContent: "space-between" }}>
                 <Grid item xs={6}>
                     <div className='text-left flex cursor-pointer'>

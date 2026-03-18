@@ -3,10 +3,17 @@ import AddressCard from '../AddressCard/AddressCard';
 import Cart from '../Cart/Cart';
 import { Button } from '@mui/material';
 import CartCard from '../Cart/CartCard';
+import { useNavigate } from 'react-router-dom';
 type Props = {
 
 };
 const OrderSummary:React.FC<Props> = () => {
+    
+    const navigate = useNavigate();
+    
+    const handlePlaceOrder = ()=>{
+        navigate("/account/orders");
+    }
   return (
     <div>
         <div className=''>
@@ -45,7 +52,7 @@ const OrderSummary:React.FC<Props> = () => {
 
                         </div>
                         <div className='text-left py-1'>
-                            <Button className='w-full' variant='contained' sx={{ px: "2.5rem", py: "0.7rem", bgcolor: "#9155fd" }}
+                            <Button onClick={(handlePlaceOrder)} className='w-full' variant='contained' sx={{ px: "2.5rem", py: "0.7rem", bgcolor: "#9155fd" }}
                             >
                                 Place Order
                             </Button>

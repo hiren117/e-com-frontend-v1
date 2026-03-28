@@ -18,6 +18,8 @@ const CustomerRouters: React.FC<Props> = () => {
       </div>
       <Routes>
 
+        <Route path="/login" element={<HomePage />} />
+        <Route path="/register" element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />

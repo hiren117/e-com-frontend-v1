@@ -31,7 +31,7 @@ const Admin:React.FC<Props> = () => {
   const navigate = useNavigate(); 
 
   const drawer = (
-    <Box className="shadow-lg"
+    <Box className=""
     sx={{
       overflow: "auto",
       display: "flex",
@@ -69,14 +69,14 @@ const Admin:React.FC<Props> = () => {
 
   return (
     <div> 
-      <Box sx={{display: `${isLargeScreen} ? "flex" : "block"`}}>
+      <div className='flex h-[100vh]'>
         <CssBaseline />
-        <Drawer
-        variant='permanent'
-        >
+        <div className='shadow-lg w-[15%]'>
           {drawer}
-        </Drawer>
-        <Box>
+        </div>
+        
+          
+        <div className=' shadow-lg w-[85%]'>
             <Routes>
               <Route path = '/' element = {<Dashboard1 />} > </Route>
               <Route path = '/products' element={ <ProductsTable1/> } />
@@ -87,10 +87,10 @@ const Admin:React.FC<Props> = () => {
 
             </Routes>
 
-        </Box>
+        </div>
         
 
-      </Box>
+      </div>
     </div>
     
   );

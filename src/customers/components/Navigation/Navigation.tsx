@@ -1,14 +1,10 @@
 "use client";
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import React, { Fragment, useState } from "react";
+
+import React, { Fragment, use, useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
   Popover,
   PopoverButton,
   PopoverGroup,
@@ -26,7 +22,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   loginPopUp,
   navigation,
@@ -34,7 +30,12 @@ import {
   type NavLink,
   type Section,
 } from "./NavigationData";
-import { Button } from "@mui/material";
+import { Avatar, Button, Menu, MenuItem } from "@mui/material";
+import AuthModal from '@/customers/Auth/AuthModal';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import { useAppDispatch, useAppSelector } from "@/Redux/hooks";
+import { getUser, logout } from "@/Redux/Auth/Action";
+import { deepPurple } from "@mui/material/colors";
 
 function classNames(...classes: Array<string | false | null | undefined>): string {
   return classes.filter(Boolean).join(' ');
@@ -51,6 +52,54 @@ const Navigation: React.FC = () => {
   ) => {
     navigate(`/${category.id}/${section.id}/${item.name}`);
   };
+
+  // redux logic for login pop up will be here, for now it is false, when user will click on login/signin then it will be true and menu will open instead of auth modal
+  const dispatch = useAppDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const {auth} = useAppSelector((store) => store);
+  const location = useLocation();
+  
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openUserMenu = Boolean(anchorEl);
+  const handleUserClick = (event:any) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleOpen = () => {
+    setOpenAuthModal(true);
+  };
+  const handleClose = () => {
+    setOpenAuthModal(false);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorEl(null);
+  };
+  
+  const handleMyOrderClick = () => {
+    handleCloseUserMenu();
+    auth.user?.role === "ROLE_ADMIN"
+      ? navigate("/admin")
+      : navigate("/account/order");
+  };
+
+   const handleLogout = () => {
+    handleCloseUserMenu();
+    dispatch(logout());
+  };
+  useEffect(() => {
+    if(jwt){
+      dispatch(getUser(jwt));
+    }
+  }, [jwt,auth.jwt])
+
+  useEffect(() => {
+    if(auth.user){
+      handleClose();
+    }
+    if(location.pathname === "/login" || location.pathname === "/register"){
+      navigate(-1);
+    }
+  }, [auth.user])
 
   return (
     <div className="bg-white">
@@ -358,34 +407,60 @@ const Navigation: React.FC = () => {
                   </a>
                 </div> */}
                 {/* login pop up */}
-                <Menu as="div" className="relative inline-block text-left">
-                  <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    <PermIdentityIcon className='mt-1' />
-                  </MenuButton>
 
-                  <MenuItems
-                    transition
-                    className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-                  >
-                    <div className="py-1">
-                      {loginPopUp.map((option) => (
-                        <MenuItem key={option.name}>
-                          <a
-                            href={option.href}
-                            className={classNames(
-                              option.current
-                                ? "font-medium text-gray-900"
-                                : "text-gray-500",
-                              "block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden"
-                            )}
-                          >
-                            {option.name}
-                          </a>
+                {auth.user ? (
+                    <div>
+                      <Avatar
+                        className="text-white"
+                        onClick={handleUserClick}
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        // onClick={handleUserClick}
+                        sx={{
+                          bgcolor: deepPurple[500],
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {auth.user?.firstName[0].toUpperCase()}
+                      </Avatar>
+                      {/* <Button
+                        id="basic-button"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={handleUserClick}
+                      >
+                        Dashboard
+                      </Button> */}
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={openUserMenu}
+                        onClose={handleCloseUserMenu}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button",
+                        }}
+                      >
+                        <MenuItem onClick={handleMyOrderClick}>
+                          {auth.user?.role === "ROLE_ADMIN"
+                            ? "Admin Dashboard"
+                            : "My Orders"}
                         </MenuItem>
-                      ))}
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                      </Menu>
                     </div>
-                  </MenuItems>
-                </Menu>
+                  ) : (
+                    <Button
+                      onClick={handleOpen}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Signin
+                    </Button>
+                  )}
+                
+
                 <div className="hidden lg:ml-8 lg:flex">
                   <a
                     href="#"
@@ -433,6 +508,11 @@ const Navigation: React.FC = () => {
           </div>
         </nav>
       </header>
+      {/* auth modal */}
+      <div>
+        <AuthModal handleClose={handleClose} open={openAuthModal} />
+      </div>
+
     </div>
   );
 };
